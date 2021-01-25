@@ -1,0 +1,35 @@
+
+  .homogenis-card{
+    min-width: 35em;
+    max-width: 35em;
+  }
+  
+  .red{
+    background-color: #db2020a1;
+    color:black;
+  }
+  .orange{
+    background-color: #fe6230a1;
+    color:black;
+  }
+  .yellow{
+    background-color: #fef600a1;
+    color: black;
+  }
+  .green{
+    background-color: #00bb00a1;
+    color: black;
+  }
+  .blue{
+    background-color: #009bfea1;
+    color: black;
+  }
+  .purple{
+    background-color:#e030d7a1;
+    color: black;
+  }
+  .indigo {
+    background-color: #00eeffa1;
+    color: black;
+  }
+

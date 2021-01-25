@@ -28,6 +28,12 @@ const routes = [
     beforeEnter: authGuard
   },
   {
+    path: '/blogs/edit',
+    name: 'EditBlogPage',
+    component: loadPage('EditBlogPage'),
+    beforeEnter: authGuard
+  },
+  {
     path: '/create',
     name: 'CreateBlog',
     component: loadPage('CreateBlogPage'),

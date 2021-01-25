@@ -1,6 +1,6 @@
 <template>
   <div class="modal fade"
-       id="commentMod"
+       id="editCommentMod"
        tabindex="-1"
        role="dialog"
        aria-labelledby="commentModLabel"
@@ -8,10 +8,10 @@
   >
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
-        <form @submit.prevent="createComment">
+        <form @submit.prevent="editComment">
           <div class="modal-header">
             <h5 class="modal-title" id="commentModLabel">
-              Write Comment
+              Edit Comment
             </h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
@@ -71,6 +71,15 @@ export default {
         } finally {
           state.commData = {}
           state.showComm = true
+        }
+      },
+      async editComment() {
+        try {
+          $('#editCommentMod').modal('hide')
+          await commentsService.editComment(state.commData)
+          state.commData = {}
+        } catch (error) {
+          logger.error(error)
         }
       }
     }

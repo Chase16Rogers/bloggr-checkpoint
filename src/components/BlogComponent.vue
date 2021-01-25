@@ -1,9 +1,9 @@
 <template>
   <div class="col-12 d-flex justify-content-center">
     <router-link :to="{name: 'ActiveBlogPage', params: {id: blog.id}}">
-      <div class="card purple my-2">
-        <div class="card-body">
-          <h2 class="text-center">
+      <div class="card my-2 homogenis-card" :class="state.color">
+        <div class="card-body ml-3">
+          <h2 class="">
             {{ blog.title }}
           </h2>
           <h5>Author: {{ blog.creator.name }}</h5>
@@ -14,44 +14,64 @@
 </template>
 
 <script>
+import { computed, onMounted, reactive } from 'vue'
+import { colorRando } from '../utils/ColorRando'
+import { AppState } from '../AppState'
 export default {
   name: 'BlogComponent',
   props: {
     blog: { type: Object, required: true }
+  },
+  setup() {
+    const state = reactive({
+      color: colorRando.randomColor(),
+      blog: computed(() => AppState.activeBlog),
+      account: computed(() => AppState.account)
+    })
+    onMounted(() => {
+
+    })
+    return {
+      state
+    }
   }
 }
 </script>
 
 <style>
 
+.homogenis-card{
+min-width: 35em;
+max-width: 35em;
+}
+
 .red{
-  background-color: red;
+  background-color: #db2020a1;
   color:black;
-  text-shadow: 1px 2px rgb(87, 86, 86);
 }
 .orange{
-  background-color: orange;
+  background-color: #fe6230a1;
   color:black;
-  text-shadow: 1px 2px rgb(87, 86, 86);
 }
 .yellow{
-  background-color: yellow;
+  background-color: #fef600a1;
   color: black;
-  text-shadow: 1px 2px rgb(87, 86, 86);
 }
 .green{
-    background-color: green;
+    background-color: #00bb00a1;
     color: black;
-    text-shadow: 1px 2px rgb(87, 86, 86);
 }
 .blue{
-    background-color: blue;
+    background-color: #009bfea1;
     color: black;
-    text-shadow: 1px 2px rgb(86, 86, 87);
 }
 .purple{
-    background-color: purple;
+    background-color:#e030d7a1;
     color: black;
+}
+.indigo {
+  background-color: #00eeffa1;
+  color: black;
 }
 
 </style>

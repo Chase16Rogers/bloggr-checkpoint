@@ -27,12 +27,12 @@
             Home
           </router-link>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" v-if="user.isAuthenticated">
           <router-link :to="{ name: 'CreateBlog' }" class="nav-link">
             Build-A-Blog
           </router-link>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" v-if="user.isAuthenticated">
           <router-link :to="{ name: 'Account' }" class="nav-link">
             Profile
           </router-link>

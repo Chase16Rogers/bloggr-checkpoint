@@ -1,5 +1,6 @@
 import { AppState } from '../AppState'
 import { api } from './AxiosService'
+import { commentsService } from './CommentsService'
 
 class BlogsService {
   async getAllBlogs() {
@@ -14,23 +15,23 @@ class BlogsService {
     console.log('activeBlog' + res.data)
   }
 
-  async getComments(id) {
-    const res = await api.get('api/blogs/' + id + '/comments')
-    console.log('comm', res.data)
-    AppState.comments = res.data
-  }
-
   async createBlog(data) {
     data.creator = AppState.account
     console.log(data)
     await api.post('api/blogs', data)
   }
 
-  async createComment(data) {
-    data.creator = AppState.account
-    data.blog = AppState.activeBlog.id
-    AppState.comments.push(data)
-    await api.post('api/comments', data)
+  async editBlog(data) {
+    const id = AppState.activeBlog.id
+    const res = await api.put('api/blogs/' + id, data)
+    AppState.blogs.push(res.data)
+  }
+
+  async deleteBlog() {
+    const id = AppState.activeBlog.id
+    await api.delete('api/blogs/' + id)
+    AppState.activeBlog = {}
+    AppState.comments.forEach(c => commentsService.deleteComment(c.id))
   }
 }
 

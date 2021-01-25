@@ -1,17 +1,17 @@
 <template>
   <div class="container">
-    <form class="form" @submit.prevent="buildBlog">
+    <form class="form" @submit.prevent="editBlog">
       <div class="row mt-4 justify-content-center">
         <div class="col-12 d-flex justify-content-center">
           <div class="card my-2 homogenis-card yellow">
             <div class="card-body ml-3">
-              <h2>Blog Title</h2>
+              <h2>Edit Blog Title</h2>
               <input v-model="state.newBlog.title"
                      type="text"
                      class="input-width border-0 bg-none"
                      name="title"
                      id="title"
-                     placeholder="your title here..."
+                     placeholder="new title here..."
                      required
               >
             </div>
@@ -24,7 +24,7 @@
             <div class="card my-2 homogenis-card green">
               <div class="card-body ml-3">
                 <div class="d-flex align-items-center">
-                  <h2>Image URL</h2>
+                  <h2>Edit Image URL</h2>
                   <p class="mb-0">
                     (Optional)
                   </p>
@@ -34,7 +34,7 @@
                        class="input-width border-0 bg-none"
                        name="imgUrl"
                        id="imgUrl"
-                       placeholder="your image here, if you want..."
+                       placeholder="new image here, if you want..."
                 >
               </div>
             </div>
@@ -64,13 +64,13 @@
           <div class="card my-2 homogenis-card indigo">
             <div class="card-body ml-3">
               <div>
-                <h2>Blog Body</h2>
+                <h2>Edit Blog Body</h2>
                 <input v-model="state.newBlog.body"
                        type="text"
                        class="input-width border-0 bg-none"
                        name="body"
                        id="body"
-                       placeholder="Write the contents of your blog..."
+                       placeholder="Write the new contents of your blog..."
                        required
                 >
               </div>
@@ -104,7 +104,7 @@ import { blogsService } from '../services/BlogsService'
 import { logger } from '../utils/Logger'
 import router from '../router'
 export default {
-  name: 'CreateBlog',
+  name: 'EditBlog',
   setup() {
     const state = reactive({
       newBlog: {}
@@ -113,9 +113,16 @@ export default {
       state,
       async buildBlog() {
         try {
-          await blogsService.createBlog(state.newBlog)
-          router.push({ name: 'Home' })
+          await blogsService.editBlog(state.newBlog)
           state.newBlog = {}
+        } catch (error) {
+          logger.error(error)
+        }
+      },
+      editBlog() {
+        try {
+          blogsService.editBlog(state.newBlog)
+          router.push({ name: 'Home' })
         } catch (error) {
           logger.error(error)
         }
